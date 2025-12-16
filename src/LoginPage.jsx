@@ -1,5 +1,6 @@
 import React from "react";
-import { useFormik } from "formik";
+import { Formik, Form } from "formik";
+import Input from "./Input"; 
 import * as Yup from "yup";
 import { Link } from "react-router";
 import { CiShoppingCart } from "react-icons/ci";
@@ -13,79 +14,50 @@ function LoginPage() {
         myPassword: Yup.string().min(8).max(12),
     });
 
-    const { handleSubmit,
-        values,
-        handleChange,
-        handleBlur,
-        resetForm,
-        errors,
-        touched,
-        isValid,
-        dirty,
-    } = useFormik({
-        initialValues: {
+    const initialValues = {
             username: "",
             myPassword: "",
-        },
-        onSubmit: callLoginApi,
-        validationSchema: schema,
-    });
+        };
+
+    
     return (
         <div className=" flex flex-col h-full justify-center items-center bg-white max-w-6xl mx-auto my-16 py-6 px-6" >
             <div className="text-9xl text-gray-900 pb-4">
                 <CiShoppingCart />
             </div>
-            <div className="flex flex-col justify-between w-90 px-6 py-2 rounded-md shadow-md bg-white space-y-5 ">
+            <Formik
+            initialValues={initialValues}
+            onSubmit={callLoginApi}
+            validationSchema={schema}
+            validateOnMount
+
+            >
+            <Form className="flex flex-col justify-between w-90 px-6 py-2 rounded-md shadow-md bg-white space-y-0.5 ">
                 <div className="text-2xl mb-8 text-primary-default font-serif font-bold">
                     DOWN-TOWN CityCart
                 </div>
-                <div>
-                    <label htmlFor="myUsername" className="sr-only ">
-                        password
-                    </label>
-                    <input
-                        value={values.username}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        type="text"
-                        id="myUsername"
-                        name="username"
-                        required
-                        autoComplete="username"
-                        className="relative block w-full appearance-none rounded-none
-                        rounded-t-md px-3 py-2 border border-gray-400 text-gray-900
-                        placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                        focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                        placeholder="Username"
-                    />
-                    {touched.username && errors.username && (
-                        <div className="text-red-700">{errors.username}</div>
-                    )}
-                </div>
+                <Input
+                label = "email Address"
+                id = "email-address"
+                name = "username"
+                type = "text"
+                required
+                autoComplete = "email"
+                placeholder = "username or email"
+                classname = "rounded-b-none"
+                />
 
-                <div>
-                    <label htmlFor="password" className="sr-only ">
-                        password
-                    </label>
-                    <input
-                        value={values.myPassword}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        type="password"
-                        id="password"
-                        name="myPassword"
-                        required
-                        autoComplete="myPassword"
-                        className="relative block w-full appearance-none rounded-none
-                        rounded-t-md px-3 py-2 border border-gray-400 text-gray-900
-                        placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                        focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                        placeholder="enter the password"
-                    />
-                    {touched.myPassword && errors.myPassword && (
-                        <div className="text-red-700">{errors.myPassword}</div>
-                    )}
-                </div>
+                 <Input
+                label = "enter Password"
+                id = "user-password"
+                name = "myPassword"
+                type = "password"
+                required
+                autoComplete = "curr-Password"
+                placeholder = "Password"
+                classname = "rounded-t-none"
+                />
+         
 
                 <div className="self-end text-xs text-primary-light ">
                     <Link to="/ForgotPassPage"> Forgot Password? 
@@ -95,14 +67,11 @@ function LoginPage() {
                 <div className="self-center space-x-2">
                     <button
                         type="button"
-                        onClick={resetForm}
                         className="text-white bg-primary-default hover:bg-primary-dark px-2 py-0.5 rounded-sm self-end">
                         Reset
                     </button>
                     <button
                         type="submit"
-                        onClick={handleSubmit}
-                        disabled={!isValid || !dirty}
                         className="text-white bg-primary-default hover:bg-primary-dark disabled:bg-primary-light px-2 py-0.5 rounded-sm ">
                         Login
                     </button>
@@ -111,7 +80,8 @@ function LoginPage() {
                 <div className="self-center text-sm mt-2 text-gray-400 "> don't have an account?
                    <Link to="/signupPage" className="text-primary-default"> Signup </Link>
                 </div>
-            </div>
+            </Form>
+            </Formik>
         </div>
     );
 }
