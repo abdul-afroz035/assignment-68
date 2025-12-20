@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import Input from "./Input";
+import { FormikInput } from "./Input";
 import * as Yup from "yup";
 import { Link } from "react-router";
 import { CiShoppingCart } from "react-icons/ci";
@@ -10,7 +11,7 @@ function LoginPage() {
         console.log("sending data");
     }
     const schema = Yup.object().shape({
-        username: Yup.string().matches(/^[a-zA-Z0-9_]+$/, "username should be alphabates or number").min(3),
+        username: Yup.string().matches(/^[a-zA-Z0-9_]+$/, "username should be alphabates or number or email").min(3),
         myPassword: Yup.string().min(8).max(12),
     });
 
@@ -36,7 +37,7 @@ function LoginPage() {
                     <div className="text-2xl mb-8 text-primary-default font-serif font-bold">
                         DOWN-TOWN CityCart
                     </div>
-                    <Input
+                    <FormikInput
                         label="enter username "
                         id="userName"
                         name="username"
@@ -47,7 +48,7 @@ function LoginPage() {
                         classname="rounded-b-none"
                     />
 
-                    <Input
+                    <FormikInput
                         label="enter Password"
                         id="user-password"
                         name="myPassword"

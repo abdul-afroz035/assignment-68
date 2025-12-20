@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import Input from "./Input";
+import { FormikInput } from "./Input";
 import * as Yup from "yup";
 import { Link } from "react-router";
 import { CiShoppingCart } from "react-icons/ci";
@@ -42,7 +43,7 @@ function SignupPage() {
                     <div className="text-2xl mb-8 text-primary-default font-serif font-bold">
                         DOWN-TOWN CityCart
                     </div>
-                    <Input
+                    <FormikInput
                         label="enter fullName"
                         id="Full-Name"
                         name="fullName"
@@ -52,7 +53,7 @@ function SignupPage() {
                         placeholder="FullName"
                     />
 
-                    <Input
+                    <FormikInput
                         label="enter email"
                         id="user-email"
                         name="myEmail"
@@ -62,7 +63,7 @@ function SignupPage() {
                         placeholder="Email"
                     />
 
-                    <Input
+                    <FormikInput
                         label="enter username "
                         id="userName"
                         name="username"
@@ -72,7 +73,7 @@ function SignupPage() {
                         placeholder="username or email"   
                     />
 
-                    <Input
+                    <FormikInput
                         label="enter Password"
                         id="user-password"
                         name="myPassword"
@@ -82,7 +83,7 @@ function SignupPage() {
                         placeholder="enter Password"
                     />
 
-                    <Input
+                    <FormikInput
                         label="conferm Password"
                         id="cnfm-password"
                         name="confermPass"
@@ -91,12 +92,6 @@ function SignupPage() {
                         autoComplete="conferm-Password"
                         placeholder="conferm Password"
                     />
-
-
-                    <div className="self-end text-xs text-primary-light ">
-                        <Link to="/ForgotPassPage"> Forgot Password?
-                        </Link>
-                    </div>
 
                     <div className="self-center space-x-2">
                         <button

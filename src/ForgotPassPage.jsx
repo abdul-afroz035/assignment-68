@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import Input from "./Input";
+import { FormikInput } from "./Input";
 import * as Yup from "yup";
 import { Link } from "react-router";
 import { CiShoppingCart } from "react-icons/ci";
@@ -34,7 +35,7 @@ function ForgotPassPage() {
                     <div className="text-2xl mb-8 text-primary-default font-serif font-bold">
                         DOWN-TOWN CityCart
                     </div>
-                    <Input
+                    <FormikInput
                         label="enter email"
                         id="user-email"
                         name="myEmail"
