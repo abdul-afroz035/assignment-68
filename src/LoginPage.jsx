@@ -1,18 +1,17 @@
 import React from "react";
-import { Formik, Form } from "formik";
+import { withFormik } from "formik";
 import Input from "./Input";
-import { FormikInput } from "./Input";
 import * as Yup from "yup";
 import { Link } from "react-router";
 import { CiShoppingCart } from "react-icons/ci";
 
-function LoginPage() {
-    function callLoginApi(values) {
+
+function callLoginApi(values) {
         console.log("sending data");
     }
     const schema = Yup.object().shape({
-        username: Yup.string().matches(/^[a-zA-Z0-9_]+$/, "username should be alphabates or number or email").min(3),
-        myPassword: Yup.string().min(8).max(12),
+        username: Yup.string().matches(/^[a-zA-Z0-9_]+$/, "username should be alphabates or number or email").min(3).required(),
+        myPassword: Yup.string().min(8).max(12).required(),
     });
 
     const initialValues = {
@@ -20,24 +19,24 @@ function LoginPage() {
         myPassword: "",
     };
 
-
+export function LoginPage({handleSubmit, errors, touched, values, handleChange, handleBlur}) {
+    
     return (
         <div className=" flex flex-col h-full justify-center items-center bg-white max-w-6xl mx-auto my-16 py-6 px-6" >
             <div className="text-9xl text-gray-900 pb-4">
                 <CiShoppingCart />
             </div>
-            <Formik
-                initialValues={initialValues}
-                onSubmit={callLoginApi}
-                validationSchema={schema}
-                validateOnMount
-
-            >
-                <Form className="flex flex-col justify-between w-90 px-6 py-2 rounded-md shadow-md bg-white space-y-0.5 ">
+         
+                <form onSubmit={handleSubmit} className="flex flex-col justify-between w-90 px-6 py-2 rounded-md shadow-md bg-white space-y-0.5 ">
                     <div className="text-2xl mb-8 text-primary-default font-serif font-bold">
                         DOWN-TOWN CityCart
                     </div>
-                    <FormikInput
+                    <Input
+                        values = {values.username}
+                        error = {errors.username}
+                        touched = {touched.username}
+                        onChange = {handleChange}
+                        onBlur = {handleBlur}
                         label="enter username "
                         id="userName"
                         name="username"
@@ -48,7 +47,12 @@ function LoginPage() {
                         classname="rounded-b-none"
                     />
 
-                    <FormikInput
+                    <Input
+                        values = {values.myPassword}
+                        error = {errors.myPassword}
+                        touched = {touched.myPassword}
+                        onChange = {handleChange}
+                        onBlur = {handleBlur}
                         label="enter Password"
                         id="user-password"
                         name="myPassword"
@@ -81,10 +85,16 @@ function LoginPage() {
                     <div className="self-center text-sm mt-2 text-gray-400 "> don't have an account?
                         <Link to="/signupPage" className="text-primary-default"> Signup </Link>
                     </div>
-                </Form>
-            </Formik>
+                </form>
         </div>
     );
 }
 
-export default LoginPage;
+const myHOC = withFormik({
+    validationSchema: schema, 
+    initialValues: initialValues,
+    handleSubmit: callLoginApi
+});
+const easyLogin = myHOC(LoginPage);
+
+export default easyLogin;

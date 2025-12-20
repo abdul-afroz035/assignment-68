@@ -1,5 +1,4 @@
 import React from "react";
-import FormikHOC from "./FormikHOC";
 
 
 function Input({ name, label, id, classname, touched, error, ...rest }) {
@@ -31,5 +30,4 @@ function Input({ name, label, id, classname, touched, error, ...rest }) {
         </div>
     );
 }
-export const FormikInput = FormikHOC(Input);
 export default Input;
